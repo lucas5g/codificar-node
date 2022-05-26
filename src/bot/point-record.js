@@ -12,6 +12,9 @@ export async function pointRecord() {
 async function gestor() {
     const browser = await puppeteer.launch({
         headless: true,
+        ignoreDefaultArgs: [
+            '--disable-extensions'
+        ],
         args: [
             '--no-sandbox',
             'disable-setuid-sandbox'
@@ -27,7 +30,7 @@ async function gestor() {
     await page.type('input[name="c4"]', process.env.GESTOR_PASSWORD)
     await page.click('input[type="submit"]')
 
-    await page.waitForTimeout(1000)
+    await page.waitForTimeout(2000)
     const buttonPonto = await page.waitForXPath('//a/strong[contains(., "Ponto")]')
     await buttonPonto.click()
 
