@@ -17,7 +17,7 @@ async function gestor() {
         ],
         args: [
             '--no-sandbox',
-            'disable-setuid-sandbox'
+            '--disable-setuid-sandbox'
         ]
     });
     const page = await browser.newPage();

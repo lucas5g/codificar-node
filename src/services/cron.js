@@ -10,7 +10,7 @@ import { pointRecord } from '../bot/point-record.js'
 // });
 
 
-cron.schedule('56 8-20 * * *', () => {
+cron.schedule('4 8-20 * * *', () => {
     console.log('Running report ponto')
     pointRecord();
 });
