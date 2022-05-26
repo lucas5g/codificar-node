@@ -14,7 +14,7 @@ cron.schedule('* * * * *', () => {
 //     pointRecord()
 // });
 
-cron.schedule('18 8-20 * * *', () => {
+cron.schedule('26 8-20 * * *', () => {
     console.log('Running report ponto')
     pointRecord()
 });
