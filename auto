@@ -32,6 +32,7 @@ push(){
         ssh -t versionaplicativoderestaurante "\
             cd codificar/codificar-node \
             && git pull \
+            && pm2 restart codificar-node --update-env  \
         "
     fi
 }
