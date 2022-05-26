@@ -5,9 +5,9 @@ dotenv.config();
 
 import { pointRecord } from '../bot/point-record.js'
 
-// cron.schedule('* * * * *', () => {
-//     console.log('running a task every minute')
-// });
+cron.schedule('* * * * *', () => {
+    console.log('running a task every minute')
+});
 
 
 cron.schedule('4 8-20 * * *', () => {
