@@ -12,12 +12,8 @@ export async function pointRecord() {
 async function gestor() {
     const browser = await puppeteer.launch({
         headless: true,
-        ignoreDefaultArgs: [
-            '--disable-extensions'
-        ],
         args: [
             '--no-sandbox',
-            '--disable-setuid-sandbox'
         ]
     });
     const page = await browser.newPage();
