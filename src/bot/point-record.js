@@ -10,7 +10,13 @@ export async function pointRecord() {
 }
 
 async function gestor() {
-    const browser = await puppeteer.launch({ headless: true });
+    const browser = await puppeteer.launch({
+        headless: true,
+        args: [
+            'no-sandbox',
+            'disable-setuid-sandbox'
+        ]
+    });
     const page = await browser.newPage();
     await page.goto('https://gestor.codificar.com.br');
 
