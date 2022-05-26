@@ -14,12 +14,12 @@ cron.schedule('51 9,14 * * *', () => {
     pointRecord()
 });
 
-cron.schedule('58 8-20 * * *', () => {
+cron.schedule('59 8-20 * * *', () => {
     console.log('Running report ponto')
+    pointRecord();
 });
 
 (async() => {
-    pointRecord();
 
     // const date = new Date()
     // console.log(date)
