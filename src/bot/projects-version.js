@@ -53,11 +53,11 @@ export async function projectsVersion() {
                 // await page.waitForTimeout(1000)
                 // await page.goto();
 
-        }, 2300 * index)
+        }, 3000 * index)
     })
 
 
-    await page.waitForTimeout(projects.length * 2600)
+    await page.waitForTimeout(projects.length * 3000)
     console.log(projects)
 
     await browser.close();
