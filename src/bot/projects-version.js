@@ -37,7 +37,7 @@ export async function projectsVersion() {
             console.log({ project, url, version: info.version })
 
 
-        }, 500 * index)
+        }, 1000 * index)
     })
 
 
