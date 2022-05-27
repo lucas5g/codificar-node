@@ -1,6 +1,5 @@
 import puppeteer from 'puppeteer';
 import fs from 'fs'
-import { rmSync } from 'fs';
 
 const projects = [
     'molde',
@@ -13,6 +12,7 @@ const projects = [
 
 ].sort()
 
+const projectsObjToJson = []
 
 export async function projectsVersion() {
 
@@ -24,7 +24,7 @@ export async function projectsVersion() {
 
             const { url, info } = await verfiyVersion({ project })
 
-            projects[index] = {
+            projectsObjToJson[index] = {
                 name: project,
                 url,
                 version: info.version
@@ -33,7 +33,7 @@ export async function projectsVersion() {
             console.log({ project, url, version: info.version })
 
 
-        }, 1000 * index)
+        }, 500 * index)
     })
 
 
@@ -45,7 +45,7 @@ export async function projectsVersion() {
 
     setTimeout(() => {
         console.log('atualizando lista...')
-        fs.writeFile('./data/projects.json', JSON.stringify(projects, 0, 2), err => {
+        fs.writeFile('./data/projects.json', JSON.stringify(projectsObjToJson, 0, 2), err => {
             if (err) {
                 console.log({ err })
             }
@@ -53,7 +53,7 @@ export async function projectsVersion() {
         console.log('Lista atualizada.')
 
         // return projects
-    }, 3000 * projects.length)
+    }, 2000 * projects.length)
 }
 
 

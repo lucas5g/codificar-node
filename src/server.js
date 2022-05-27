@@ -14,13 +14,19 @@ app.get('/', (req, res) => {
 })
 
 app.get('/projects', async(req, res) => {
-    await projectsVersion()
-        // console.log(projects)
 
-    const projects = await fs.readFileSync('data/projects.json', 'utf8')
+    const projects = fs.readFileSync('data/projects.json', 'utf8')
 
     return res.json(JSON.parse(projects))
         // res.send('todos os painéis')
+})
+
+app.get('/projects-update-list', (req, res) => {
+    projectsVersion()
+
+    res.json({
+        msg: 'Atualizando listas dos projetos via webhook'
+    })
 })
 
 
