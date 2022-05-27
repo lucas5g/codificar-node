@@ -2,11 +2,15 @@ import puppeteer from 'puppeteer';
 import fs from 'fs'
 
 const projects = [
-    'molde',
-    'medicol',
-    'mariamariabox',
-    'pedenobairro',
     'achelocal',
+    'ajudaai',
+    'dusha',
+    'freefood',
+    'mariamariabox',
+    'medicol',
+    'molde',
+    'pedenobairro',
+    'pedeme',
     'puppy',
     'pidao'
 
