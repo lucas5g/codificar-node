@@ -34,7 +34,7 @@ async function gestor() {
 
     await page.screenshot({ path: 'src/assets/ponto.png' });
 
-    await page.waitForTimeout(5000)
+    // await page.waitForTimeout(5000)
     await browser.close();
 }
 
