@@ -1,5 +1,6 @@
 import express from "express";
 import path from "path";
+import fs from 'fs'
 import { projectsVersion } from "./bot/projects-version.js"
 import "./services/cron.js"
 
@@ -13,8 +14,12 @@ app.get('/', (req, res) => {
 })
 
 app.get('/projects', async(req, res) => {
-    const projects = await projectsVersion()
-    return res.json(projects)
+    await projectsVersion()
+        // console.log(projects)
+
+    const projects = await fs.readFileSync('data/projects.json', 'utf8')
+
+    return res.json(JSON.parse(projects))
         // res.send('todos os painéis')
 })
 

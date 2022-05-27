@@ -19,7 +19,7 @@ cron.schedule('20 9-14 * * *', () => {
 
 (async() => {
     // pointRecord();
-    console.log(await projectsVersion())
+    // console.log(await projectsVersion())
 
     // const date = new Date()
     // console.log(date)

@@ -1,28 +1,63 @@
 import puppeteer from 'puppeteer';
+import fs from 'fs'
+import { rmSync } from 'fs';
 
+const projects = [
+    'molde',
+    'medicol',
+    'mariamariabox',
+    'pedenobairro',
+    'achelocal',
+    'puppy',
+    'pidao'
 
-const projects = [{
-        name: 'molde'
-    },
-    {
-        name: 'medicol'
-    },
-    {
-        name: 'mariamariabox'
-    },
-    {
-        name: 'pedenobairro'
-    },
-    {
-        name: 'achelocal'
-    },
-    {
-        name: 'puppy'
-    }
-]
+].sort()
 
 
 export async function projectsVersion() {
+
+
+    // await page.goto(`https://app.${projects[0].web}.appmarketplace.com.br`);
+
+    projects.map(async(project, index) => {
+        setTimeout(async() => {
+
+            const { url, info } = await verfiyVersion({ project })
+
+            projects[index] = {
+                name: project,
+                url,
+                version: info.version
+            }
+
+            console.log({ project, url, version: info.version })
+
+
+        }, 500 * index)
+    })
+
+
+    // fs.writeFile('./data/projects.json', '', err => {
+    //     if (err) {
+    //         console.log({ err })
+    //     }
+    // })
+
+    setTimeout(() => {
+        console.log('atualizando lista...')
+        fs.writeFile('./data/projects.json', JSON.stringify(projects, 0, 2), err => {
+            if (err) {
+                console.log({ err })
+            }
+        })
+        console.log('Lista atualizada.')
+
+        // return projects
+    }, 2000 * projects.length)
+}
+
+
+async function verfiyVersion({ project }) {
     const browser = await puppeteer.launch({
         headless: true,
         args: [
@@ -31,35 +66,19 @@ export async function projectsVersion() {
     });
 
     const page = await browser.newPage()
-        // await page.goto(`https://app.${projects[0].web}.appmarketplace.com.br`);
 
-    projects.map(async(project, index) => {
-        setTimeout(async() => {
-            const url = `https://app.${project.name}.appmarketplace.com.br`
-            await page.goto(url)
 
-            const info = await page.evaluate(() => {
-                return {
-                    version: document.querySelector('div.text-version >  p > strong').textContent
+    const url = `https://app.${project}.appmarketplace.com.br`
+    await page.goto(url)
 
-                }
-            })
-            projects[index] = {
-                    name: project.name,
-                    url,
-                    version: info.version
+    const info = await page.evaluate(() => {
+        return {
+            version: document.querySelector('div.text-version >  p > strong').textContent,
 
-                }
-                // await page.waitForTimeout(1000)
-                // await page.goto();
-
-        }, 3000 * index)
+        }
     })
-
-
-    await page.waitForTimeout(projects.length * 3000)
-    console.log(projects)
-
     await browser.close();
-    return projects
+
+    return { info, url }
+
 }
