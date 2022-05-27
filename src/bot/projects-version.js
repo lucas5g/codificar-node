@@ -33,7 +33,7 @@ export async function projectsVersion() {
             console.log({ project, url, version: info.version })
 
 
-        }, 500 * index)
+        }, 1000 * index)
     })
 
 
@@ -53,7 +53,7 @@ export async function projectsVersion() {
         console.log('Lista atualizada.')
 
         // return projects
-    }, 2000 * projects.length)
+    }, 3000 * projects.length)
 }
 
 
