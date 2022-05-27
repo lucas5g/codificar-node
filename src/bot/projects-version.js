@@ -57,7 +57,7 @@ export async function projectsVersion() {
         console.log('Lista atualizada.')
 
         // return projects
-    }, 2000 * projects.length)
+    }, 3000 * projects.length)
 }
 
 
