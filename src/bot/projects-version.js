@@ -23,7 +23,6 @@ const projects = [{
 
 
 export async function projectsVersion() {
-    console.log(projects)
     const browser = await puppeteer.launch({
         headless: true,
         args: [
@@ -37,8 +36,6 @@ export async function projectsVersion() {
     projects.map(async(project, index) => {
         setTimeout(async() => {
             const url = `https://app.${project.name}.appmarketplace.com.br`
-
-            console.log({ url })
             await page.goto(url)
 
             const info = await page.evaluate(() => {
@@ -48,7 +45,7 @@ export async function projectsVersion() {
                 }
             })
             projects[index] = {
-                    ...projects[index],
+                    name: project.name,
                     url,
                     version: info.version
 
@@ -56,11 +53,12 @@ export async function projectsVersion() {
                 // await page.waitForTimeout(1000)
                 // await page.goto();
 
-        }, 2200 * index)
+        }, 2300 * index)
     })
 
 
     await page.waitForTimeout(projects.length * 2600)
+    console.log(projects)
 
     await browser.close();
     return projects
