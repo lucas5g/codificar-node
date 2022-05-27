@@ -15,14 +15,16 @@ cron.schedule('*/30 * * * *', () => {
 
 cron.schedule('20 9-14 * * *', () => {
     console.log('Running report ponto')
+    console.log('new Date()')
     pointRecord();
 });
 
 
 
 (async() => {
-    // pointRecord();
-    // console.log(await projectsVersion())
+    console.log(new Date())
+        // pointRecord();
+        // console.log(await projectsVersion())
 
     // const date = new Date()
     // console.log(date)
