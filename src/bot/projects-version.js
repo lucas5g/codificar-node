@@ -73,7 +73,7 @@ export async function projectsVersion() {
             // console.log(project)
 
 
-        }, 2000 * index)
+        }, 3000 * index)
     })
 
 
@@ -89,7 +89,7 @@ export async function projectsVersion() {
         console.log('Lista atualizada.')
 
         // return projects
-    }, 3000 * projects.length)
+    }, 3500 * projects.length)
 }
 
 // projectsVersion()
@@ -116,7 +116,7 @@ async function verfiyVersion({ name, ios }) {
     })
 
     await page.goto(ios)
-    await page.waitForTimeout(2000)
+    await page.waitForTimeout(3000)
     await page.waitForSelector('p.whats-new__latest__version')
     const infoIos = await page.evaluate(() => {
             return {
@@ -130,7 +130,7 @@ async function verfiyVersion({ name, ios }) {
 
 
     await browser.close();
-    console.log({ infoIos })
+    console.log({ name, versionIos: infoIos.versionIos })
     return { infoWeb, infoIos, portal }
 
 }
