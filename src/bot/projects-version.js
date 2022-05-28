@@ -73,7 +73,7 @@ export async function projectsVersion() {
             // console.log(project)
 
 
-        }, 2000 * index)
+        }, 1000 * index)
     })
 
 
@@ -116,6 +116,7 @@ async function verfiyVersion({ name, ios }) {
     })
 
     await page.goto(ios)
+    await page.waitForSelector('p.whats-new__latest__version')
     await page.waitForTimeout(1000)
     const infoIos = await page.evaluate(() => {
             return {
