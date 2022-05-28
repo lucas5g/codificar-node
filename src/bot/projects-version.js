@@ -50,7 +50,7 @@ const projects = [{
 //     name: 'pidao',
 //     ios: 'https://apps.apple.com/br/app/pid%C3%A3o/id1534631942'
 // }, ]
-const time = 7000
+const time = 12000
 
 export async function projectsVersion() {
 
