@@ -60,7 +60,7 @@ export async function projectsVersion() {
     projects.map(async(project, index) => {
         setTimeout(async() => {
 
-            const { portal, infoWeb, infoIos } = await verfiyVersion({ name: project.name, ios: project.ios })
+            const { portal, infoWeb, infoIos } = await verifyVersion({ name: project.name, ios: project.ios })
                 // console.log({ infoWeb, infoIos })
             projects[index] = {
                 ...project,
@@ -88,12 +88,12 @@ export async function projectsVersion() {
         console.log('Lista atualizada.')
 
         // return projects
-    }, 3500 * projects.length)
+    }, 6000 * projects.length)
 }
 
 // projectsVersion()
 
-async function verfiyVersion({ name, ios }) {
+async function verifyVersion({ name, ios }) {
     const browser = await puppeteer.launch({
         headless: true,
         args: [
@@ -121,12 +121,16 @@ async function verfiyVersion({ name, ios }) {
         const el = document.querySelector('p.we-connecting__instructions')
         return el ? true : false
     })
+    console.log({ conectando })
 
     if (conectando) {
-        await page.reload()
+        await verifyVersion({ name, ios })
+            //await page.goto(ios)
+        return
+        //        await page.reload()
     }
-    // await page.waitForSelector('p.whats-new__latest__version', { timeout: 40000 })
-    await page.waitForTimeout(1000)
+
+    await page.waitForSelector('p.whats-new__latest__version', { timeout: 40000 })
     const infoIos = await page.evaluate(() => {
             return {
                 versionIos: document.querySelector('p.whats-new__latest__version').textContent.replace('Versão ', '').replace('Version ', '')
