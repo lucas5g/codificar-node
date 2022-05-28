@@ -50,7 +50,6 @@ const projects = [{
 //     name: 'pidao',
 //     ios: 'https://apps.apple.com/br/app/pid%C3%A3o/id1534631942'
 // }, ]
-const time = 12000
 
 export async function projectsVersion() {
 
@@ -89,7 +88,7 @@ export async function projectsVersion() {
         console.log('Lista atualizada.')
 
         // return projects
-    }, (time + 2000) * projects.length)
+    }, 5000 * projects.length)
 }
 
 // projectsVersion()
@@ -116,9 +115,8 @@ async function verfiyVersion({ name, ios }) {
     })
 
     await page.goto(ios)
-    await page.waitForTimeout(time)
-        // await page.waitForNavigation()
-    await page.waitForSelector('p.whats-new__latest__version')
+        // await page.waitForNavigation({ timeout: 60000 })
+    await page.waitForSelector('p.whats-new__latest__version', { timeout: 40000 })
     const infoIos = await page.evaluate(() => {
             return {
                 versionIos: document.querySelector('p.whats-new__latest__version').innerText.replace('Versão ', '').replace('Version ', '')
