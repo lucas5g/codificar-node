@@ -88,7 +88,7 @@ export async function projectsVersion() {
         console.log('Lista atualizada.')
 
         // return projects
-    }, 6000 * projects.length)
+    }, 6100 * projects.length)
 }
 
 // projectsVersion()
@@ -115,7 +115,7 @@ async function verifyVersion({ name, ios }) {
     })
 
     await page.goto(ios)
-        // await page.waitForNavigation({ timeout: 60000 })
+    await page.waitForNavigation({ timeout: 40000 })
 
     const conectando = await page.evaluate(() => {
         const el = document.querySelector('p.we-connecting__instructions')
