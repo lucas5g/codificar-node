@@ -7,59 +7,67 @@ const projects = [{
     },
     {
         name: 'ajudaai',
+        ios: 'https://apps.apple.com/us/app/ajuda-ai/id1603669928'
     },
-    {
-        name: 'dusha',
-    },
+    // {
+    //     name: 'dusha',
+    // },
     {
         name: 'freefood',
+        ios: 'https://apps.apple.com/in/app/freefood/id1529160011'
     },
     {
         name: 'mariamariabox',
+        ios: 'https://apps.apple.com/br/app/mariamariabox/id1604821083'
     },
     {
         name: 'medicol',
+        ios: 'https://apps.apple.com/br/app/medicol/id1574241148'
     },
     {
         name: 'molde',
+        ios: 'https://apps.apple.com/us/app/molde/id1571195191'
     },
-    {
-        name: 'pedeme',
-    },
+    // {
+    //     name: 'pedeme',
+
+    // },
     {
         name: 'pedenobairro',
+        ios: 'https://apps.apple.com/br/app/pede-no-bairro/id1527831739'
     },
     {
-        name: 'pidao'
+        name: 'pidao',
+        ios: 'https://apps.apple.com/br/app/pid%C3%A3o/id1534631942'
     },
-    {
-        name: 'puppy',
-    },
+    // {
+    //     name: 'puppy',
+    //     ios: ''
+    // },
 ]
 
+// const projects = [{
+//     name: 'pidao',
+//     ios: 'https://apps.apple.com/br/app/pid%C3%A3o/id1534631942'
+// }, ]
 
 export async function projectsVersion() {
 
 
-    // await page.goto(`https://app.${projects[0].web}.appmarketplace.com.br`);
 
     projects.sort((a, b) => a.name > b.name && 1 || -1);
-    // console.log(test)
-    // projects.map(project => {
-    //     console.log({ project })
-    // })
 
-    // return
     console.log('atualizando lista...')
     projects.map(async(project, index) => {
         setTimeout(async() => {
 
-            const { portal, info } = await verfiyVersion({ project: project.name })
-
+            const { portal, infoWeb, infoIos } = await verfiyVersion({ name: project.name, ios: project.ios })
+                // console.log({ infoWeb, infoIos })
             projects[index] = {
                 ...project,
                 portal,
-                versionWeb: info.versionWeb
+                versionWeb: infoWeb.versionWeb,
+                versionIos: infoIos.versionIos
             }
 
             // console.log(project)
@@ -69,11 +77,7 @@ export async function projectsVersion() {
     })
 
 
-    // fs.writeFile('./data/projects.json', '', err => {
-    //     if (err) {
-    //         console.log({ err })
-    //     }
-    // })
+
 
     setTimeout(() => {
         console.log(projects)
@@ -90,7 +94,7 @@ export async function projectsVersion() {
 
 projectsVersion()
 
-async function verfiyVersion({ project }) {
+async function verfiyVersion({ name, ios }) {
     const browser = await puppeteer.launch({
         headless: true,
         args: [
@@ -101,17 +105,31 @@ async function verfiyVersion({ project }) {
     const page = await browser.newPage()
 
 
-    const portal = `https://app.${project}.appmarketplace.com.br`
+    const portal = `https://app.${name}.appmarketplace.com.br`
     await page.goto(portal)
 
-    const info = await page.evaluate(() => {
+    const infoWeb = await page.evaluate(() => {
         return {
             versionWeb: document.querySelector('div.text-version >  p > strong').textContent,
 
         }
     })
+
+    await page.goto(ios)
+
+    const infoIos = await page.evaluate(() => {
+            return {
+                versionIos: document.querySelector('p.whats-new__latest__version').innerText.replace('Versão ', '')
+
+
+            }
+        })
+        // console.log(infoIos)
+        // await page.waitForTimeout(500)
+
+
     await browser.close();
 
-    return { info, portal }
+    return { infoWeb, infoIos, portal }
 
 }
