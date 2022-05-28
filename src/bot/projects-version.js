@@ -88,7 +88,7 @@ export async function projectsVersion() {
         console.log('Lista atualizada.')
 
         // return projects
-    }, 3000 * projects.length)
+    }, 3500 * projects.length)
 }
 
 // projectsVersion()
@@ -126,9 +126,10 @@ async function verfiyVersion({ name, ios }) {
         await page.reload()
     }
     // await page.waitForSelector('p.whats-new__latest__version', { timeout: 40000 })
+    await page.waitForTimeout(1000)
     const infoIos = await page.evaluate(() => {
             return {
-                versionIos: document.querySelector('p.whats-new__latest__version').innerText.replace('Versão ', '').replace('Version ', '')
+                versionIos: document.querySelector('p.whats-new__latest__version').textContent.replace('Versão ', '').replace('Version ', '')
 
 
             }
