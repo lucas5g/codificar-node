@@ -116,7 +116,16 @@ async function verfiyVersion({ name, ios }) {
 
     await page.goto(ios)
         // await page.waitForNavigation({ timeout: 60000 })
-    await page.waitForSelector('p.whats-new__latest__version', { timeout: 40000 })
+
+    const conectando = await page.evaluate(() => {
+        const el = document.querySelector('p.we-connecting__instructions')
+        return el ? true : false
+    })
+
+    if (conectando) {
+        await page.reload()
+    }
+    // await page.waitForSelector('p.whats-new__latest__version', { timeout: 40000 })
     const infoIos = await page.evaluate(() => {
             return {
                 versionIos: document.querySelector('p.whats-new__latest__version').innerText.replace('Versão ', '').replace('Version ', '')
