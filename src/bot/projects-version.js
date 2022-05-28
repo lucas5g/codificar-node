@@ -116,10 +116,10 @@ async function verfiyVersion({ name, ios }) {
     })
 
     await page.goto(ios)
-
+    await page.waitForTimeout(1000)
     const infoIos = await page.evaluate(() => {
             return {
-                versionIos: document.querySelector('p.whats-new__latest__version').innerText.replace('Versão ', '')
+                versionIos: document.querySelector('p.whats-new__latest__version').innerText.replace('Versão ', '').replace('Version ', '')
 
 
             }
