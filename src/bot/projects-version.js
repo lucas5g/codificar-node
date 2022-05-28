@@ -1,40 +1,68 @@
 import puppeteer from 'puppeteer';
 import fs from 'fs'
 
-const projects = [
-    'achelocal',
-    'ajudaai',
-    'dusha',
-    'freefood',
-    'mariamariabox',
-    'medicol',
-    'molde',
-    'pedenobairro',
-    'pedeme',
-    'puppy',
-    'pidao'
+const projects = [{
+        name: 'achelocal',
+        ios: 'https://apps.apple.com/us/app/ache-local/id1504708811?l=pt&ls=1'
+    },
+    {
+        name: 'ajudaai',
+    },
+    {
+        name: 'dusha',
+    },
+    {
+        name: 'freefood',
+    },
+    {
+        name: 'mariamariabox',
+    },
+    {
+        name: 'medicol',
+    },
+    {
+        name: 'molde',
+    },
+    {
+        name: 'pedeme',
+    },
+    {
+        name: 'pedenobairro',
+    },
+    {
+        name: 'pidao'
+    },
+    {
+        name: 'puppy',
+    },
+]
 
-].sort()
-
-const projectsObjToJson = []
 
 export async function projectsVersion() {
 
 
     // await page.goto(`https://app.${projects[0].web}.appmarketplace.com.br`);
 
+    projects.sort((a, b) => a.name > b.name && 1 || -1);
+    // console.log(test)
+    // projects.map(project => {
+    //     console.log({ project })
+    // })
+
+    // return
+    console.log('atualizando lista...')
     projects.map(async(project, index) => {
         setTimeout(async() => {
 
-            const { url, info } = await verfiyVersion({ project })
+            const { portal, info } = await verfiyVersion({ project: project.name })
 
-            projectsObjToJson[index] = {
-                name: project,
-                url,
-                version: info.version
+            projects[index] = {
+                ...project,
+                portal,
+                versionWeb: info.versionWeb
             }
 
-            console.log({ project, url, version: info.version })
+            // console.log(project)
 
 
         }, 1000 * index)
@@ -48,8 +76,8 @@ export async function projectsVersion() {
     // })
 
     setTimeout(() => {
-        console.log('atualizando lista...')
-        fs.writeFile('./data/projects.json', JSON.stringify(projectsObjToJson, 0, 2), err => {
+        console.log(projects)
+        fs.writeFile('./data/projects.json', JSON.stringify(projects, 0, 2), err => {
             if (err) {
                 console.log({ err })
             }
@@ -60,6 +88,7 @@ export async function projectsVersion() {
     }, 3000 * projects.length)
 }
 
+projectsVersion()
 
 async function verfiyVersion({ project }) {
     const browser = await puppeteer.launch({
@@ -72,17 +101,17 @@ async function verfiyVersion({ project }) {
     const page = await browser.newPage()
 
 
-    const url = `https://app.${project}.appmarketplace.com.br`
-    await page.goto(url)
+    const portal = `https://app.${project}.appmarketplace.com.br`
+    await page.goto(portal)
 
     const info = await page.evaluate(() => {
         return {
-            version: document.querySelector('div.text-version >  p > strong').textContent,
+            versionWeb: document.querySelector('div.text-version >  p > strong').textContent,
 
         }
     })
     await browser.close();
 
-    return { info, url }
+    return { info, portal }
 
 }
