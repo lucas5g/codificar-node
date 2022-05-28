@@ -73,7 +73,7 @@ export async function projectsVersion() {
             // console.log(project)
 
 
-        }, 1000 * index)
+        }, 2000 * index)
     })
 
 
@@ -92,7 +92,7 @@ export async function projectsVersion() {
     }, 3000 * projects.length)
 }
 
-projectsVersion()
+// projectsVersion()
 
 async function verfiyVersion({ name, ios }) {
     const browser = await puppeteer.launch({
