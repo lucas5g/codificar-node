@@ -124,8 +124,8 @@ async function verifyVersion({ name, ios }) {
     console.log({ conectando })
 
     if (conectando) {
-        await verifyVersion({ name, ios })
-            //await page.goto(ios)
+        // await verifyVersion({ name, ios })
+        //await page.goto(ios)
         return
         //        await page.reload()
     }
