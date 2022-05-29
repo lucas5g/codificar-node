@@ -3,6 +3,7 @@ import path from "path";
 import fs from 'fs'
 import { projectsVersion } from "./bot/projects-version.js"
 import "./services/cron.js"
+import { prisma } from "./config/prisma.js";
 
 
 const app = express()
@@ -15,10 +16,9 @@ app.get('/', (req, res) => {
 
 app.get('/projects', async(req, res) => {
 
-    const projects = fs.readFileSync('data/projects.json', 'utf8')
+    const projects = await prisma.project.findMany()
 
-    return res.json(JSON.parse(projects))
-        // res.send('todos os painéis')
+    return res.json(projects)
 })
 
 app.get('/projects-update-list', (req, res) => {

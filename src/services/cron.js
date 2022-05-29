@@ -20,11 +20,16 @@ cron.schedule('20 9-14 * * *', () => {
 });
 
 
-
+import { prisma } from '../config/prisma.js'
 (async() => {
-    console.log(new Date())
-        // pointRecord();
-        // console.log(await projectsVersion())
+
+    // const projects = await prisma.project.findMany()
+
+    // console.log(projects)
+
+    // console.log(new Date())
+    // pointRecord();
+    // console.log(await projectsVersion())
 
     // const date = new Date()
     // console.log(date)

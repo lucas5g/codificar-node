@@ -12,6 +12,7 @@
     "author": "lucas <lucas@mail.com>",
     "license": "ISC",
     "dependencies": {
+        "@prisma/client": "3.14.0",
         "axios": "^0.27.2",
         "bcryptjs": "^2.4.3",
         "chromium": "^3.0.3",
@@ -20,5 +21,8 @@
         "node-cron": "^3.0.0",
         "nodemon": "^2.0.16",
         "puppeteer": "^14.1.1"
+    },
+    "devDependencies": {
+        "prisma": "^3.14.0"
     }
 }
