@@ -31,6 +31,7 @@ push(){
         git push
         ssh -t versionaplicativoderestaurante "\
             cd codificar/codificar-node \
+            && git reset --hard
             && git pull \
             && source ~/.nvm/nvm.sh \
             && nvm use 16 \
