@@ -7,20 +7,19 @@ dotenv.config();
 
 import { pointRecord } from '../bot/point-record.js'
 
-cron.schedule('*/30 * * * *', () => {
+cron.schedule('*/30 9,19 * * 1-5', () => {
     console.log('Update version projects')
     projectsVersion()
 });
 
 
-cron.schedule('20 9-14 * * *', () => {
+cron.schedule('20 9,14 * * 1-5', () => {
     console.log('Running report ponto')
     console.log('new Date()')
     pointRecord();
 });
 
 
-import { prisma } from '../config/prisma.js'
 (async() => {
 
     // const projects = await prisma.project.findMany()
