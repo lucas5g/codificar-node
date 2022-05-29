@@ -16,7 +16,11 @@ app.get('/', (req, res) => {
 
 app.get('/projects', async(req, res) => {
 
-    const projects = await prisma.project.findMany()
+    const projects = await prisma.project.findMany({
+        orderBy: [{
+            name: 'asc'
+        }]
+    })
 
     return res.json(projects)
 })
