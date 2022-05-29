@@ -4,13 +4,19 @@ import { prisma } from '../config/prisma.js'
 export async function projectsVersion() {
 
 
-    const projects = await prisma.project.findMany()
+    const projects = await prisma.project.findMany({
+        orderBy: [{
+            name: 'asc'
+        }]
+
+    })
 
     console.log('atualizando lista...')
     projects.map(async(project, index) => {
         setTimeout(async() => {
 
-            const { infoIos } = await verifyVersionIos({ ios: project.ios })
+            // console.log(project.name)
+            const { infoIos } = await verifyVersionIos({ ios: project.ios, name: project.name })
 
             // console.log({ infoIos })
             // return
@@ -64,7 +70,8 @@ async function verifyVersion({ name }) {
 
 }
 
-async function verifyVersionIos({ ios }) {
+async function verifyVersionIos({ ios, name }) {
+    // console.log(name)
     const browser = await puppeteer.launch({
         headless: true,
         args: [
@@ -77,15 +84,30 @@ async function verifyVersionIos({ ios }) {
 
     await page.goto(ios)
 
-    const infoIos = await page.evaluate(() => {
-        return {
-            versionIos: document.querySelector('p.whats-new__latest__version').textContent.replace('Versão ', '').replace('Version ', '')
+    try {
 
+        await page.waitForSelector('p.whats-new__latest__version')
+        const infoIos = await page.evaluate(() => {
+            return {
+                versionIos: document.querySelector('p.whats-new__latest__version').textContent.replace('Versão ', '').replace('Version ', '')
+
+            }
+        })
+        await browser.close();
+        console.log(name)
+        return { infoIos }
+
+    } catch (err) {
+        console.log(err)
+        console.log(name)
+        console.log(ios)
+        const infoIos = {
+            versionIos: 'Update'
         }
-    })
-
+        return { infoIos }
+    }
     await browser.close();
-    console.log({ ios, infoIos })
+    // console.log({ ios, infoIos })
 
-    return { infoIos }
+
 }
