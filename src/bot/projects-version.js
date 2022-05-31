@@ -10,17 +10,18 @@ export async function projectsVersion() {
         }]
 
     })
-
+    console.log('Total projects: ' + projects.length)
     console.log('atualizando lista...')
+
     projects.map(async(project, index) => {
         setTimeout(async() => {
 
             // console.log(project.name)
-            const { infoIos } = await verifyVersionIos({ ios: project.ios, name: project.name })
+            const { infoIos } = await verifyVersionIos({ ios: project.ios, name: project.name, index })
 
-            // console.log({ infoIos })
+            // console.log( project )
             // return
-            const { infoWeb } = await verifyVersion({ name: project.name })
+            const { infoWeb } = await verifyVersion({ portal: project.portal })
             await prisma.project.update({
                 where: { name: project.name },
                 data: {
@@ -42,7 +43,7 @@ export async function projectsVersion() {
 
 // projectsVersion()
 
-async function verifyVersion({ name }) {
+async function verifyVersion({ portal }) {
     const browser = await puppeteer.launch({
         headless: true,
         args: [
@@ -52,8 +53,6 @@ async function verifyVersion({ name }) {
 
     const page = await browser.newPage()
 
-
-    const portal = `https://app.${name}.appmarketplace.com.br`
     await page.goto(portal)
 
     const infoWeb = await page.evaluate(() => {
@@ -66,11 +65,11 @@ async function verifyVersion({ name }) {
 
     await browser.close();
 
-    return { infoWeb, portal }
+    return { infoWeb }
 
 }
 
-async function verifyVersionIos({ ios, name }) {
+async function verifyVersionIos({ ios, name, index }) {
     // console.log(name)
     const browser = await puppeteer.launch({
         headless: true,
@@ -94,7 +93,7 @@ async function verifyVersionIos({ ios, name }) {
             }
         })
         await browser.close();
-        console.log(name)
+        console.log(`${index + 1} ${name}`)
         return { infoIos }
 
     } catch (err) {
