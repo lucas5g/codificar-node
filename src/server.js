@@ -1,12 +1,14 @@
 import express from "express";
 import path from "path";
-import fs from 'fs'
+import cors from 'cors'
 import { projectsVersion } from "./bot/projects-version.js"
-import "./services/cron.js"
 import { prisma } from "./config/prisma.js";
+
+import "./services/cron.js"
 
 
 const app = express()
+app.use(cors())
 app.use(express.static(path.resolve() + '/src/assets'))
 
 

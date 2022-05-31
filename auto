@@ -35,6 +35,7 @@ push(){
             && git pull \
             && source ~/.nvm/nvm.sh \
             && nvm use 16 \
+            && npm install 
             && pm2 restart codificar-node --update-env  \
         "
     fi
