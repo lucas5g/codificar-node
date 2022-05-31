@@ -8,7 +8,9 @@ const projects = [{
         android: "https://play.google.com/store/apps/details?id=com.br.achelocal",
         portal: "https://app.achelocal.appmarketplace.com.br",
         versionWeb: "feature.23003",
-        versionIos: "2.13.9"
+        versionIos: "2.13.9",
+        versionAndroid: "2.14.2"
+
     },
     {
         name: "ajudaai",
@@ -16,7 +18,9 @@ const projects = [{
         android: "https://play.google.com/store/apps/details?id=br.com.codificar.ajudaai",
         portal: "https://app.ajudaai.appmarketplace.com.br",
         versionWeb: "2.21.0",
-        versionIos: "2.13.7"
+        versionIos: "2.13.7",
+        versionAndroid: "2.14.2"
+
     },
     {
         name: "demo",
@@ -33,7 +37,9 @@ const projects = [{
         android: "https://play.google.com/store/apps/details?id=br.com.codificar.freefood",
         portal: "https://app.freefood.appmarketplace.com.br",
         versionWeb: "2.21.0",
-        versionIos: "2.13.5"
+        versionIos: "2.13.5",
+        versionAndroid: "2.14.2"
+
     },
     {
         name: "mariamariabox",
@@ -41,7 +47,9 @@ const projects = [{
         android: "https://play.google.com/store/apps/details?id=br.com.codificar.mariamariabox",
         portal: "https://app.mariamariabox.appmarketplace.com.br",
         versionWeb: "2.21.0",
-        versionIos: "2.14.2"
+        versionIos: "2.14.2",
+        versionAndroid: "2.14.2"
+
     },
     {
         name: "medicol",
@@ -49,7 +57,9 @@ const projects = [{
         android: "https://play.google.com/store/apps/details?id=br.com.codificar.medicolappmarketplace",
         portal: "https://app.medicol.appmarketplace.com.br",
         versionWeb: "2.21.0",
-        versionIos: "2.14.1"
+        versionIos: "2.14.1",
+        versionAndroid: "2.14.2"
+
     },
     {
         name: "molde",
@@ -57,7 +67,9 @@ const projects = [{
         android: "https://play.google.com/store/apps/details?id=br.com.codificar.molde",
         portal: "https://app.molde.appmarketplace.com.br",
         versionWeb: "2.21.0",
-        versionIos: "2.13.3"
+        versionIos: "2.13.3",
+        versionAndroid: "2.14.2"
+
     },
     {
         name: "pedenobairro",
@@ -65,7 +77,9 @@ const projects = [{
         android: "https://play.google.com/store/apps/details?id=br.com.codificar.pedenobairro",
         portal: "https://app.pedenobairro.appmarketplace.com.br",
         versionWeb: "2.21.0",
-        versionIos: "2.13.5"
+        versionIos: "2.13.5",
+        versionAndroid: "2.14.2"
+
     },
     {
         name: "pidao",
@@ -73,7 +87,9 @@ const projects = [{
         android: "https://play.google.com/store/apps/details?id=br.com.codificar.pidao",
         portal: "https://app.pidao.appmarketplace.com.br",
         versionWeb: "2.20.2",
-        versionIos: "2.11.2"
+        versionIos: "2.11.2",
+        versionAndroid: "2.14.2"
+
     }
 ]
 
